@@ -6,6 +6,11 @@ function validar(){
     const edad = document.getElementById('edad').value;
     
     const cuerpoTabla = document.getElementById('cuerpoTabla').value;
-    
+    const  nuevaFila = cuerpoTabla.insertCrow();
+
+    nuevaFila.insertCell(0).innerText = nombre;
+    nuevaFila.insertCell(1).innerText = edad;
+    const celdaAccion = nuevaFila.insertCell(2);
+
 
 }
