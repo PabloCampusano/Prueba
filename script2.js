@@ -15,6 +15,5 @@ function validar(){
     btnEliminar.innerText = 'Eliminar';
     btnEliminar.onclick = function() {
     tabla.deleteRow(nuevaFila.rowIndex - 1)
-
 }
 }
