@@ -1,19 +1,54 @@
-//validar nombre, debe contener solo letras y no ser vacio
-//validar edad: Debe ser mayor o igual a 18 y menor a 100
+function validar() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const edad = parseInt(document.getElementById('edad').value);
+    const errorNombre = document.getElementById('errorNombre');
+    const errorEdad = document.getElementById('errorEdad');
 
-function validar(){
-    const nombre = document.getElementById('nombre').value;
-    const edad = document.getElementById('edad').value;
-    
-    const cuerpoTabla = document.getElementById('cuerpoTabla').value;
-    const  nuevaFila = cuerpoTabla.insertCrow();
+    let valido = true;
 
-    nuevaFila.insertCell(0).innerText = nombre;
-    nuevaFila.insertCell(1).innerText = edad;
-    const celdaAccion = nuevaFila.insertCell(2);
+    if (nombre === '') {
+        errorNombre.textContent = 'Ingrese un nombre';
+        valido = false;
+    } else {
+        errorNombre.textContent = '';
+    }
+
+    if (isNaN(edad) || edad < 18 || edad > 99) {
+        errorEdad.textContent = 'Ingresa una edad valida';
+        valido = false;
+    } else {
+        errorEdad.textContent = '';
+    }
+
+    if (!valido) return;
+
+    const tabla = document.getElementById('cuerpoTabla');
+    const fila = tabla.insertRow();
+
+    fila.insertCell().textContent = nombre;
+    fila.insertCell().textContent = edad;
+
+    const celdaAccion = fila.insertCell();
+
     const btnEliminar = document.createElement('button');
-    btnEliminar.innerText = 'Eliminar';
-    btnEliminar.onclick = function() {
-    tabla.deleteRow(nuevaFila.rowIndex - 1)
-}
+    btnEliminar.textContent = 'Eliminar';
+    btnEliminar.onclick = () => {
+        if (confirm('¿Quieres eleminar este registro?')) {
+            tabla.deleteRow(fila.rowIndex - 1);
+        }
+    };
+
+    const btnActualizar = document.createElement('button');
+    btnActualizar.textContent = 'Actualizar';
+    btnActualizar.onclick = () => {
+        document.getElementById('nombre').value = nombre;
+        document.getElementById('edad').value = edad;
+        tabla.deleteRow(fila.rowIndex - 1);
+    };
+    
+    celdaAccion.appendChild(btnEliminar);
+    celdaAccion.appendChild(btnActualizar);
+
+    document.getElementById('nombre').value = '';
+    document.getElementById('edad').value = '';
 }
